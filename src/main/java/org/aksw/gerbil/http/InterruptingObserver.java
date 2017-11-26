@@ -51,29 +51,43 @@ public class InterruptingObserver implements Runnable {
     }
 
     private void checkAnnotators() {
-        try {
+        try 
+        {
             observedMappingMutex.acquire();
-        } catch (InterruptedException e) {
+        } 
+        catch (InterruptedException e) 
+        {
             LOGGER.error("Interrupted while waiting for mutex. Aborting.");
         }
 
         long waitingTime;
         long currentTime = System.currentTimeMillis();
         ObservedHttpRequest observedRequest;
-        for (int i = 0; i < observedRequests.allocated.length; ++i) {
-            if (observedRequests.allocated[i]) {
+        for (int i = 0; i < observedRequests.allocated.length; ++i) 
+        {
+            if (observedRequests.allocated[i]) 
+            {
                 waitingTime = currentTime - observedRequests.values[i];
-                if (waitingTime > maxWaitingTime) {
+                if (waitingTime > maxWaitingTime) 
+                {
+                	System.out.println("");
+                	System.out.println("ATTENZIONE! waitingTime > maxWaitingTime! \n");
+                	
+                	
                     observedRequest = ((ObservedHttpRequest) ((Object[]) observedRequests.keys)[i]);
                     LOGGER.info("The HTTP request emitter \"{}\" already runs for {} ms. Trying to interrupt it.",
                             observedRequest.emitter.getName(), waitingTime);
-                    try {
+                    try 
+                    {
                         observedRequest.emitter.interrupt(observedRequest.request);
-                    } catch (UnsupportedOperationException e) {
+                    } 
+                    catch (UnsupportedOperationException e) 
+                    {
                         LOGGER.error("Couldn't interrupt request of HTTP request emitter \""
                                 + observedRequest.emitter.getName() + "\" that is already running for " + waitingTime
                                 + " ms.");
-                    }
+                    } 
+                	
                 }
             }
         }

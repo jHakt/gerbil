@@ -84,7 +84,7 @@ public class AbstractHttpRequestEmitter implements HttpRequestEmitter {
      */
     protected HttpPost createPostRequest(String url) throws IllegalArgumentException {
         HttpPost request = new HttpPost(url);
-        HttpManagement.getInstance().reportStart(this, request);
+        //HttpManagement.getInstance().reportStart(this, request);
         return request;
     }
 

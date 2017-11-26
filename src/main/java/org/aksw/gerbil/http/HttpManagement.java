@@ -73,6 +73,7 @@ public class HttpManagement {
                 LOGGER.warn("Couldn't load maximum time to wait from configuration. Using default "
                         + DEFAULT_WAITING_TIME + "ms.", e);
             }
+            System.out.println("MaxWaitingTime: " + maxWaitingTime + "\n");
             long checkInterval = DEFAULT_CHECK_INTERVAL;
             try {
                 checkInterval = GerbilConfiguration.getInstance().getLong(CHECK_INTERVAL_KEY);
